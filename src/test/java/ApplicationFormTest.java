@@ -24,11 +24,11 @@ public class ApplicationFormTest {
         String planDate = generateDate(4, "dd.MM.yyyy");
         Selenide.open("http://localhost:9999");
 
-        $$("[data-test-id='city'] input").find(Condition.visible).setValue("Красноярск");
-        $("[type='tel']").press(Keys.chord(Keys.CONTROL, Keys.BACK_SPACE))
+        $("input[placeholder='Город']").setValue("Красноярск");
+        $("input[placeholder='Дата встречи']").press(Keys.chord(Keys.CONTROL, Keys.BACK_SPACE))
                 .setValue(planDate);
-        $$("[name='name']").find(Condition.visible).setValue("Алексеев Алексей");
-        $$("[name='phone']").find(Condition.visible).setValue("+70123456789");
+        $("[data-test-id='name'] input").setValue("Алексеев Алексей");
+        $("[data-test-id='phone'] input").setValue("+70123456789");
         $(".checkbox__box").click();
         $$("button").find(Condition.text("Забронировать")).click();
         $$("[data-test-id='notification']")
