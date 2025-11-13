@@ -24,16 +24,13 @@ public class ApplicationFormTest {
         String planDate = generateDate(4, "dd.MM.yyyy");
         Selenide.open("http://localhost:9999");
 
-        $("input[placeholder='Город']").setValue("Красноярск");
-        $("input[placeholder='Дата встречи']").press(Keys.chord(Keys.CONTROL, Keys.BACK_SPACE))
+        $("[data-test-id='city'] input").setValue("Красноярск");
+        $("[data-test-id='date'] input").press(Keys.chord(Keys.CONTROL, Keys.BACK_SPACE))
                 .setValue(planDate);
         $("[data-test-id='name'] input").setValue("Алексеев Алексей");
         $("[data-test-id='phone'] input").setValue("+70123456789");
         $(".checkbox__box").click();
         $$("button").find(Condition.text("Забронировать")).click();
-        $$("[data-test-id='notification']")
-                .find(Condition.visible)
-                .shouldHave(Condition.text("Встреча успешно забронирована на " + planDate), Duration.ofSeconds(15));
-//        $(Selectors.withText("Встреча успешно забронирована на " + planDate)).should(Condition.visible, Duration.ofSeconds(25)); - обьясните пожалуйста почему не находил по тексту?
+        $("[data-test-id='notification']").shouldHave(Condition.text("Встреча успешно забронирована на " + planDate), Duration.ofSeconds(15));
     }
 }
